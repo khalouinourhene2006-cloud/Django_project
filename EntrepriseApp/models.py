@@ -8,7 +8,7 @@ class Utilisateur(AbstractUser):
     telephone= models.CharField(max_length=15, blank=True ,null=True)
     role=models.CharField(max_length=20, choices=[('admin','Admin'),('c','Chargeur'),('t', 'Transporteur')])
 
-class Entreprise(models,Model):
+class Entreprise(models.Model):
     raison_social= models.CharField(max_length=200, blank=False ,null=False)
     matricule_fiscale = models.CharField(max_length=17 ,unique=True)
     adresse = models.TextField()
