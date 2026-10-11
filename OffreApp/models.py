@@ -1,13 +1,16 @@
 from django.db import models
+from EntrepriseApp.models import Entreprise
+from VehiculeApp.models import Vehicule
+from ExpeditionApp.models import Expedition
 
 # Create your models here.
 class OffreApp(models.Model):
-    prix=models.DecimalField()
+    prix=models.DecimalField(max_digits=10,decimal_places=3)
     delai_jours=models.PositiveIntegerField()
-    statut=models.CharField(max_length=20, choices=[('p','proposee'),('a','acceptee'),('r','refusee'),('re','retiree')],default='proposee')
+    statut=models.CharField(max_length=20, choices=[('p','proposee'),('a','acceptee'),('r','refusee'),('re','retiree')],default='p')
     date_proposition=models.DateField(auto_now_add=True)
-    expedition=models.ForeignKey('ExpeditionApp.expedition', on_delete=models.CASCADE ,related_name='offre')
-    transporteur=models.ForeignKey('VehiculeApp.vehicule', on_delete=models.CASCADE ,related_name='vehicule')
-    vehicule=models.ForeignKey('VehiculeApp.vehicule', on_delete=models.CASCADE ,related_name='vehicule')
+    entreprise =models.ForeignKey(Entreprise, on_delete=models.CASCADE,related_name='offres')
+    expedition =models.ForeignKey(Expedition, on_delete=models.CASCADE,related_name='offres')
+    vehicule=models.ForeignKey(Vehicule, on_delete=models.CASCADE,related_name='offres')
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at= models.DateTimeField(auto_now=True)
