@@ -1,3 +1,14 @@
 from django.contrib import admin
+from .models import Vehicule
 
+# Register your models here.
+@admin.register(Vehicule)
+class VehiculeAdmin(admin.ModelAdmin):
+    list_display = ('type_vehicule','disponible','capacite_kg')
+    readonly_fields = ('created_at', 'updated_at')
+    fieldsets = (('Identification', {'fields': ('immatriculation', 'type_vehicule')}),
+                 ('Statut et rattachement', {'fields': ('disponible', 'entreprise'}),
+                 ('Horodatage', {'fields': ('created_at', 'updated_at'),'classes': ('collapse',)}))
+    
+#admin.site.register(Vehicule, VehiculeAdmin)
 # Register your models here.

@@ -7,7 +7,9 @@ class useradmin (admin.ModelAdmin):
     list_editable = ('username','is_active','is_superuser')
     search_fields = ('user_id','username', 'email')
     list_filter = ('is_active','is_superuser','role')
-    list_per_page = 2
+    list_per_page = 1
+
+
 
 
 admin.site.register (Entreprise)
