@@ -1,4 +1,5 @@
 from django.db import models
+from EntrepriseApp.models import Entreprise
 from django.core.validators import MinLengthValidator ,MaxLengthValidator, RegexValidator, MinValueValidator
 from django.core.exceptions import ValidationError
 from django.utils import timezone
@@ -25,8 +26,7 @@ def _generate_reference(cls):
         annee = timezone.now().strftime('%Y')
         prefixe = annee
         dernier=(cls.objects.filter(reference__startswith=prefixe).order_by('reference').last()) 
-        compteur = (int(dernier.reference[-5]) + 1 
-        if dernier else 1)
+        compteur = int(dernier.reference[-5]) + 1 if dernier else 1
         if compteur > 99999:
             raise ValidationError("Limit exceeded .")
         return f"{prefixe}{compteur:05d}"
@@ -37,3 +37,6 @@ def _generate_reference(cls):
         #fct appellé pour appliquer les validateurs
         self.full_clean()
         super().save(*args, **kwargs)
+
+ def __str__(self):
+        return self.reference
